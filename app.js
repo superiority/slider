@@ -65,3 +65,20 @@ btnNext.onclick = function () {
     nextSlide.setAttribute('data-active', '');
 }
 
+btnPrev.onclick = function () {
+
+    console.log('nazad')
+
+    //Скрытие текущего слайда
+    const currentSlide = slider.querySelector('[data-active]');
+    const currentSlideIndex = +currentSlide.dataset.index;
+    currentSlide.classList.add('hidden');
+    currentSlide.removeAttribute('data-active');
+
+    //Показ предыдущего слайда
+    const nextSlideIndex = currentSlideIndex === 0 ? sliderItems.length - 1 : currentSlideIndex - 1;
+    const nextSlide = slider.querySelector(`[data-index='${nextSlideIndex}']`)
+
+    nextSlide.classList.remove('hidden');
+    nextSlide.setAttribute('data-active','');
+}
