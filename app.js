@@ -19,64 +19,36 @@ sliderItems.forEach(function (slide, index) {
 
 //Клик по слайдам
     slide.addEventListener('click', function () {
-
-        //Скрываю текущий слайд
-        slide.classList.add('hidden');
-        slide.removeAttribute('data-active');
-
-        //Рассчитываю индекс след слайда
-
-        let nextSlideIndex;
-        if (index + 1 === sliderItems.length) {
-            nextSlideIndex = 0;
-        } else {
-            nextSlideIndex = index + 1
-        }
-
-        //Нахожу след слайд
-        const nextSlide = slider.querySelector(`[data-index='${nextSlideIndex}']`);
-
-        //Отображаю след слайд
-        nextSlide.classList.remove('hidden');
-        nextSlide.setAttribute('data-active', '');
+        showBtn('next');
     });
 });
 
 btnNext.onclick = function () {
-
-
-    //Скрытие текущего слайда
-    const currentSlide = slider.querySelector('[data-active]');
-    const currentSlideIndex = +currentSlide.dataset.index;
-
-    //Показ след слайд
-    let nextSlideIndex;
-    if (currentSlideIndex + 1 === sliderItems.length) {
-        nextSlideIndex = 0;
-    } else {
-        nextSlideIndex = currentSlideIndex + 1
-    }
-    const nextSlide = slider.querySelector(`[data-index='${nextSlideIndex}']`)
-
-    currentSlide.classList.add('hidden');
-    currentSlide.removeAttribute('data-active');
-
-    nextSlide.classList.remove('hidden');
-    nextSlide.setAttribute('data-active', '');
+    showBtn('next');
+    console.log('next')
 }
 
 btnPrev.onclick = function () {
+    showBtn('prev');
+    console.log('last')
+}
 
-    console.log('nazad')
-
+function showBtn(direction) {
     //Скрытие текущего слайда
     const currentSlide = slider.querySelector('[data-active]');
     const currentSlideIndex = +currentSlide.dataset.index;
     currentSlide.classList.add('hidden');
     currentSlide.removeAttribute('data-active');
 
-    //Показ предыдущего слайда
-    const nextSlideIndex = currentSlideIndex === 0 ? sliderItems.length - 1 : currentSlideIndex - 1;
+    //Рассчитываю след индекс
+    let nextSlideIndex;
+    if (direction === 'next') {
+        nextSlideIndex = currentSlideIndex + 1 === sliderItems.length ? 0 : currentSlideIndex + 1;
+    } else if (direction === 'prev') {
+        nextSlideIndex = currentSlideIndex === 0 ? sliderItems.length - 1 : currentSlideIndex - 1;
+    }
+
+//Показ предыдущего слайда
     const nextSlide = slider.querySelector(`[data-index='${nextSlideIndex}']`)
 
     nextSlide.classList.remove('hidden');
